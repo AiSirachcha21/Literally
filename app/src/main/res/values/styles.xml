@@ -1,0 +1,33 @@
+<resources>
+
+	<!-- Base application theme. -->
+	<style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+		<!-- Customize your theme here. -->
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorSecondary">@color/colorSecondary</item>
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
+	</style>
+
+	<style name="CustomActivityAnimation">
+		<item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+		<item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+		<item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+		<item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+	</style>
+
+	<style name="menuCard" parent="android:Animation.Activity">
+		<item name="android:layout_height">92dp</item>
+		<item name="android:layout_width">170dp</item>
+		<item name="android:layout_marginStart">10dp</item>
+		<item name="android:layout_marginEnd">10dp</item>
+		<item name="cardElevation">5dp</item>
+	</style>
+
+	<style name="Divider">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">1dp</item>
+		<item name="android:background">?android:attr/listDivider</item>
+	</style>
+
+</resources>

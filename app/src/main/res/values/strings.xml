@@ -1,0 +1,42 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+	<string name="app_name">Literally</string>
+	<string name="logo_image">Logo Image</string>
+	<string name="AppNameSplash">Literally</string>
+	<string name="AppSubQuote">Your translation expert</string>
+	<string name="add_phrases_btn">Add Phrases</string>
+	<string name="edit_phrases_btn">Edit Phrases</string>
+	<string name="display_phrases_btn">Display Phrases</string>
+	<string name="language_subscriptions_btn_pt1">Language</string>
+	<string name="language_subscriptions_btn_pt2">Subscriptions</string>
+	<string name="translate_btn">Translate</string>
+	<string name="add_phrase_activity_name">Add Phrase</string>
+	<string name="type_a_phrase_hint">Type a phrase</string>
+	<string name="add_phrase_buttonTxt">Add</string>
+	<string name="display_phrases_activity_name">Display Phrases</string>
+	<string name="diplsayPhrases_subheading">Saved Texts</string>
+	<string name="edit_phrase_activity_name">Edit Phrase</string>
+	<string name="confirmChange">Confirm Change</string>
+	<string name="abortChange">Cancel</string>
+	<string name="dismissBtn">Dismiss</string>
+
+	<!--Snackbar Prompts-->
+	<string name="snackbarMsg_cannotProceedAddPhrase">You need to type something to add it.</string>
+	<string name="snackbarMsg_successfulAddPhrase">Successfully Added.</string>
+	<string name="snackbarMsg_successfulDeletePhrase">Successfully Deleted.</string>
+	<string name="snackbarMsg_SuccesfulChange">Successful Change</string>
+	<string name="snackbarMsg_UnSuccesfulChange">Change could not be completed.</string>
+	<string name="snackbarMsg_CancelledChange">Cancelled.</string>
+	<string name="language_subscriptions_activity_name">Language Subscriptions</string>
+
+	<!-- Translator API Info-->
+	<string name="API_KEY">XkeTb82JTQMnSa2OinGVbBhCVWX5YfhnZUXkP6Blue4s</string>
+	<string name="URL" tools:ignore="TypographyDashes">https://api.us-south.language-translator.watson.cloud.ibm.com/instances/656fb497-5319-486c-9270-68c6fb32ab8d</string>
+	<string name="VERSION_DATE" tools:ignore="TypographyDashes">2018-05-01</string>
+	<string name="subscribe">Subscribe</string>
+	<string name="translate_activity_name">Translate</string>
+	<string name="type_something_hint">Type Something</string>
+	<string name="result_placeholder">Result</string>
+	<string name="saved_phrases">Saved Phrases</string>
+	<string name="TranslationError">Error in translation</string>
+
+</resources>
