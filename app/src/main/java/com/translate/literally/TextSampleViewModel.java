@@ -11,6 +11,7 @@ import java.util.List;
 public class TextSampleViewModel extends AndroidViewModel {
 	private TextSampleRepository repository;
 	private LiveData<List<TextSample>> textSamples;
+	private List<TextSample> textSampleList;
 
 
 	public TextSampleViewModel(@NonNull Application application) {
@@ -39,8 +40,8 @@ public class TextSampleViewModel extends AndroidViewModel {
 		return textSamples;
 	}
 
-	public void getAllUserSamples(){
-		repository.getTextSamples();
+	public List<TextSample> getAllUserSamples(){
+		return textSampleList;
 	}
 
 

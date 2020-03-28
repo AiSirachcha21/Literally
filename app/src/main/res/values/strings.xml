@@ -29,14 +29,14 @@
 	<string name="language_subscriptions_activity_name">Language Subscriptions</string>
 
 	<!-- Translator API Info-->
-	<string name="API_KEY">XkeTb82JTQMnSa2OinGVbBhCVWX5YfhnZUXkP6Blue4s</string>
-	<string name="URL" tools:ignore="TypographyDashes">https://api.us-south.language-translator.watson.cloud.ibm.com/instances/656fb497-5319-486c-9270-68c6fb32ab8d</string>
-	<string name="VERSION_DATE" tools:ignore="TypographyDashes">2018-05-01</string>
+	<string name="TRANSLATOR_API_KEY">XkeTb82JTQMnSa2OinGVbBhCVWX5YfhnZUXkP6Blue4s</string>
+	<string name="TRANSLATOR_URL" tools:ignore="TypographyDashes">https://api.us-south.language-translator.watson.cloud.ibm.com/instances/656fb497-5319-486c-9270-68c6fb32ab8d</string>
+	<string name="TRANSLATOR_VERSION_DATE" tools:ignore="TypographyDashes">2018-05-01</string>
 	<string name="subscribe">Subscribe</string>
 	<string name="translate_activity_name">Translate</string>
 	<string name="type_something_hint">Type Something</string>
 	<string name="result_placeholder">Result</string>
 	<string name="saved_phrases">Saved Phrases</string>
-	<string name="TranslationError">Error in translation</string>
+	<string name="TranslationError">Sorry. The model for this language was not located. Please bare with us.</string>
 
 </resources>

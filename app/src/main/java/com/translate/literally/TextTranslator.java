@@ -13,16 +13,15 @@ public class TextTranslator {
 	 * Made for Translate Activity
 	 * Requires TextView to change text.
 	 */
-	private static LanguageTranslator languageTranslator;
+	private LanguageTranslator translator;
 
-	public TextTranslator(){}
 
 	public TextTranslator(LanguageTranslator translator) {
-		languageTranslator = translator;
+		this.translator = translator;
 	}
 
-	public static LanguageTranslator getLanguageTranslator() {
-		return languageTranslator;
+	public LanguageTranslator getLanguageTranslator() {
+		return translator;
 	}
 
 

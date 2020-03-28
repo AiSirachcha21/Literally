@@ -74,6 +74,7 @@
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintTop_toTopOf="parent"
 					app:layout_constraintBottom_toBottomOf="parent"
+					android:clickable="true"
 					tools:ignore="ContentDescription" />
 				<Spinner
 					android:id="@+id/targetLangSpinner"
@@ -161,15 +162,25 @@
 			<RelativeLayout
 				android:layout_width="match_parent"
 				android:layout_height="match_parent">
+				<ProgressBar
+					android:id="@+id/progress_horizontal"
+					style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginHorizontal="5dp"
+					android:progressTint="@color/colorSecondary"
+					android:progressBackgroundTint="@color/colorSecondaryVariant"
+					android:layout_alignParentTop="true"/>
 				<EditText
 					android:id="@+id/translationResultTextView"
 					android:layout_width="match_parent"
-					android:layout_height="200dp"
+					android:layout_height="180dp"
 					android:padding="10dp"
 					android:hint="@string/result_placeholder"
 					android:background="@color/colorPrimary"
 					android:textColor="@color/colorAccent"
 					android:inputType="none"
+					android:enabled="false"
 					tools:ignore="Autofill" />
 				<ImageButton
 					android:layout_width="36dp"

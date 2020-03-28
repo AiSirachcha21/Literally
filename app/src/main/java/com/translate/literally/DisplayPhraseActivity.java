@@ -21,7 +21,7 @@ public class DisplayPhraseActivity extends AppCompatActivity {
 	private RecyclerView recyclerView;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		Window window = this.getWindow();
 		// clear FLAG_TRANSLUCENT_STATUS flag:
 		window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -44,6 +44,8 @@ public class DisplayPhraseActivity extends AppCompatActivity {
 		//noinspection deprecation
 		textSampleViewModel = ViewModelProviders.of(this).get(TextSampleViewModel.class);
 		textSampleViewModel.getTextSamples().observe(this, adapter::setTextSamples);
+
+
 
 		new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 			@Override
