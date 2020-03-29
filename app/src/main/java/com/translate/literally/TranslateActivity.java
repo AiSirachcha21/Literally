@@ -129,9 +129,13 @@ public class TranslateActivity extends AppCompatActivity {
 		});
 
 		placeholderIcon.setOnClickListener(view -> {
-			new TranslateTextTask(TranslateActivity.this, textTranslator.getLanguageTranslator())
-					.execute(sourceEditText.getText().toString());
-			placeholderIcon.startAnimation(rotateAnimation);
+			if (sourceEditText.getText() != null && !sourceEditText.getText().toString().equalsIgnoreCase("")){
+				new TranslateTextTask(TranslateActivity.this, textTranslator.getLanguageTranslator())
+						.execute(sourceEditText.getText().toString());
+				placeholderIcon.startAnimation(rotateAnimation);
+			}else{
+				showSnackbar(view, "Please enter some text in to translate.");
+			}
 		});
 	}
 
@@ -374,6 +378,7 @@ public class TranslateActivity extends AppCompatActivity {
 		protected String doInBackground(String... strings) {
 
 			TranslateActivity translateActivity = translateActivityWeakReference.get();
+			Log.i("TranslatedText", "PRE/"+strings[0]);
 
 			translateActivity.languages.forEach(language -> {
 				if (language.getLangDescription().equalsIgnoreCase(translateActivity.sourceSpinner.getSelectedItem().toString())) {
@@ -384,6 +389,10 @@ public class TranslateActivity extends AppCompatActivity {
 					targetLangCode = language.getLangCode();
 				}
 			});
+
+			if (sourceLangCode.equalsIgnoreCase(targetLangCode)){
+				return strings[0];
+			}
 
 			Log.i("Model", sourceLangCode.concat("-").concat(targetLangCode));
 
