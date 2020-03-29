@@ -6,6 +6,27 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	tools:context=".TranslateActivity">
 
+
+	<!--https://stackoverflow.com/questions/18021148/display-a-loading-overlay-on-android-screen-->
+	<FrameLayout
+		android:id="@+id/progressBarHolder"
+		android:animateLayoutChanges="true"
+		android:visibility="gone"
+		android:alpha="0.4"
+		android:background="#000000"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_centerInParent="true">
+
+		<ProgressBar
+			style="?android:attr/progressBarStyleLarge"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:indeterminate="true"
+			android:layout_gravity="center" />
+	</FrameLayout>
+	<!--________________________________________________________________________________-->
+
 	<RelativeLayout
 		android:id="@+id/header"
 		android:layout_width="match_parent"
@@ -39,6 +60,7 @@
 	</RelativeLayout>
 
 	<RelativeLayout
+		android:id="@+id/sourceEditTextHolder"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_below="@id/header"
@@ -134,6 +156,8 @@
 					android:layout_marginBottom="10dp"
 					android:text="@string/saved_phrases" />
 				<ImageButton
+					android:id="@+id/sourceTextSpeakBtn"
+					android:tag="source"
 					android:layout_width="36dp"
 					android:layout_height="36dp"
 					android:background="@drawable/speak"
@@ -143,12 +167,14 @@
 					android:layout_marginEnd="10dp"
 					android:layout_marginTop="5dp"
 					android:layout_marginBottom="15dp"
+					android:onClick="speak"
 					tools:ignore="ContentDescription" />
 			</RelativeLayout>
 
 		</androidx.cardview.widget.CardView>
 
 		<androidx.cardview.widget.CardView
+			android:id="@+id/translationResultTextViewHolder"
 			android:layout_width="match_parent"
 			android:layout_height="250dp"
 			android:layout_marginTop="20dp"
@@ -183,6 +209,8 @@
 					android:enabled="false"
 					tools:ignore="Autofill" />
 				<ImageButton
+					android:id="@+id/resultTextSpeakBtn"
+					android:tag="result"
 					android:layout_width="36dp"
 					android:layout_height="36dp"
 					android:background="@drawable/speak"
@@ -192,6 +220,7 @@
 					android:layout_marginTop="5dp"
 					android:layout_marginEnd="10dp"
 					android:layout_marginBottom="5dp"
+					android:onClick="speak"
 					tools:ignore="ContentDescription" />
 			</RelativeLayout>
 		</androidx.cardview.widget.CardView>

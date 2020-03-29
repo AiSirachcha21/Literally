@@ -32,6 +32,8 @@
 	<string name="TRANSLATOR_API_KEY">XkeTb82JTQMnSa2OinGVbBhCVWX5YfhnZUXkP6Blue4s</string>
 	<string name="TRANSLATOR_URL" tools:ignore="TypographyDashes">https://api.us-south.language-translator.watson.cloud.ibm.com/instances/656fb497-5319-486c-9270-68c6fb32ab8d</string>
 	<string name="TRANSLATOR_VERSION_DATE" tools:ignore="TypographyDashes">2018-05-01</string>
+	<string name="TEXT_VOICE_API_KEY">7JkLtqHt9m4VCQzkxeS72km9EOjXDwKUp4bv2bJrBYpp</string>
+	<string name="TEXT_VOICE_URL">https://api.us-south.text-to-speech.watson.cloud.ibm.com/instances/1a92afd4-d656-491f-ab17-90f4e01907de</string>
 	<string name="subscribe">Subscribe</string>
 	<string name="translate_activity_name">Translate</string>
 	<string name="type_something_hint">Type Something</string>
