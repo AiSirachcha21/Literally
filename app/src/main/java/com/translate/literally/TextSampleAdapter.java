@@ -1,6 +1,5 @@
 package com.translate.literally;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,21 +32,19 @@ public class TextSampleAdapter extends Adapter<TextSampleAdapter.ViewHolder> {
 	}
 
 
-
-	public interface OnItemClickListener{
+	public interface OnItemClickListener {
 		void onItemClick(TextSample textSample);
 	}
 
-	public void setOnItemClickListener(OnItemClickListener listener){
+	public void setOnItemClickListener(OnItemClickListener listener) {
 		this.listener = listener;
 	}
 
 	@NonNull
 	@Override
 	public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(parent.getContext())
-				.inflate(R.layout.text_sample_item, parent, false);
-		return new ViewHolder(view, listener,textSamples);
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.text_sample_item, parent, false);
+		return new ViewHolder(view, listener, textSamples);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class TextSampleAdapter extends Adapter<TextSampleAdapter.ViewHolder> {
 		holder.textView.setText(textSample.getDescriptionText());
 		holder.textView.setTag(textSample.getDescriptionText());
 
-		if (getPhraseMode){
+		if (getPhraseMode) {
 			holder.textView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
@@ -74,20 +71,20 @@ public class TextSampleAdapter extends Adapter<TextSampleAdapter.ViewHolder> {
 		return textSamples.size();
 	}
 
-	void setTextSamples(List<TextSample> textSamples){
+	void setTextSamples(List<TextSample> textSamples) {
 		this.textSamples = textSamples;
 		notifyDataSetChanged();
 	}
 
-	TextSample getNoteAt(int position){
+	TextSample getNoteAt(int position) {
 		return textSamples.get(position);
 	}
 
-	static class ViewHolder extends RecyclerView.ViewHolder{
+	static class ViewHolder extends RecyclerView.ViewHolder {
 		private TextView textView;
 		private List<TextSample> textSamples = new ArrayList<>();
 
-		ViewHolder(@NonNull View itemView, OnItemClickListener listener, List<TextSample> textSamples ) {
+		ViewHolder(@NonNull View itemView, OnItemClickListener listener, List<TextSample> textSamples) {
 			super(itemView);
 			textView = itemView.findViewById(R.id.textItem);
 
@@ -96,7 +93,7 @@ public class TextSampleAdapter extends Adapter<TextSampleAdapter.ViewHolder> {
 				public void onClick(View view) {
 					int position = getAdapterPosition();
 					Log.i("Position", String.valueOf(position));
-					if (listener != null && position == RecyclerView.NO_POSITION){
+					if (listener != null && position == RecyclerView.NO_POSITION) {
 						listener.onItemClick(textSamples.get(position));
 					}
 				}

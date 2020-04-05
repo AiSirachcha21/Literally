@@ -35,4 +35,8 @@ public class TextSample {
 	public String getDescriptionText() {
 		return descriptionText;
 	}
+
+	public void setDescriptionText(String descriptionText) {
+		this.descriptionText = descriptionText;
+	}
 }

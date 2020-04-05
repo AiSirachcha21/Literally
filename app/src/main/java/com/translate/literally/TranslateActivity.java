@@ -1,5 +1,6 @@
 package com.translate.literally;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -16,7 +17,6 @@ import android.view.animation.RotateAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -179,7 +179,6 @@ public class TranslateActivity extends AppCompatActivity {
 		}else{
 			Snackbar.make(sourceEditText, "Trouble retrieving text. Please try again", Snackbar.LENGTH_SHORT);
 		}
-
 	}
 
 	/**
@@ -189,8 +188,6 @@ public class TranslateActivity extends AppCompatActivity {
 		@Override
 		public boolean onEditorAction(TextView textView, int action, KeyEvent keyEvent) {
 			if (action == EditorInfo.IME_ACTION_DONE) {
-//				TranslateTextTask task = new TranslateTextTask(TranslateActivity.this, textTranslator.getLanguageTranslator());
-//				task.execute(sourceEditText.getText().toString());
 				placeholderIcon.performClick();
 				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 				try {
@@ -307,6 +304,7 @@ public class TranslateActivity extends AppCompatActivity {
 			this.translateActivityWeakReference = new WeakReference<>(translateActivity);
 		}
 
+		@SuppressLint("WrongThread")
 		@Override
 		protected List<Language> doInBackground(Void... voids) {
 			TranslateActivity translateActivity = translateActivityWeakReference.get();

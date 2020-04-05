@@ -28,7 +28,6 @@ public abstract class LiterallyDB extends RoomDatabase {
 
 	//Creates singleton instance of DB Object
 	//Synchronized to avoid multiple instances of DB being created
-	// Will add default text (Hello) to DB on first create
 	static synchronized LiterallyDB getInstance(Context context) {
 		if (instance == null) {
 			instance = Room.databaseBuilder(context.getApplicationContext(),
@@ -68,10 +67,10 @@ public abstract class LiterallyDB extends RoomDatabase {
 			languageTranslator.listIdentifiableLanguages().execute()
 					.getResult()
 					.getLanguages()
-					.forEach(item -> {
-						languages.add(new Language(item.getLanguage(), item.getName(), 0));
-					});
+					.forEach(item -> languages.add(new Language(item.getLanguage(), item.getName(), 0)));
 
+
+			//Can be moved as if condition to previous forEach
 			languages.forEach(item -> Log.i("LanguageName", item.getLangCode() + " " + item.getLangDescription()));
 
 			for (Language language : languages) {

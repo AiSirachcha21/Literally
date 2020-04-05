@@ -11,7 +11,6 @@ import java.util.List;
 public class TextSampleViewModel extends AndroidViewModel {
 	private TextSampleRepository repository;
 	private LiveData<List<TextSample>> textSamples;
-	private List<TextSample> textSampleList;
 
 
 	public TextSampleViewModel(@NonNull Application application) {
@@ -32,17 +31,10 @@ public class TextSampleViewModel extends AndroidViewModel {
 		repository.delete(textSample);
 	}
 
-	public void deleteAllText(){
-		repository.deleteAll();
-	}
-
 	public LiveData<List<TextSample>> getTextSamples() {
 		return textSamples;
 	}
 
-	public List<TextSample> getAllUserSamples(){
-		return textSampleList;
-	}
 
 
 }

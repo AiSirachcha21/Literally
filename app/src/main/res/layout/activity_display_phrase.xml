@@ -37,26 +37,39 @@
 			tools:ignore="RelativeOverlap" />
 	</RelativeLayout>
 
-	<TextView
-		android:id="@+id/subheading"
+
+	<LinearLayout
+		android:id="@+id/subheading_container"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_below="@id/header"
-		android:layout_marginHorizontal="30dp"
-		android:layout_marginTop="20dp"
-		android:text="@string/diplsayPhrases_subheading"
-		android:textColor="@color/colorSecondaryVariant"
-		android:textSize="24sp"/>
+		android:layout_marginTop="10dp"
+		android:orientation="horizontal">
+		<TextView
+			android:id="@+id/subheading"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginHorizontal="30dp"
+			android:text="@string/diplsayPhrases_subheading"
+			android:textColor="@color/colorSecondaryVariant"
+			android:gravity="start|center_vertical"
+			android:layout_weight="1"
+			android:textSize="24sp"/>
+		<Spinner
+			android:id="@+id/languageSpinner"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="end|center_vertical"
+			android:layout_weight="1" />
+
+	</LinearLayout>
 
 	<RelativeLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/subheading"
 		android:layout_marginHorizontal="20dp"
 		android:layout_marginTop="10dp"
-		android:layout_below="@id/subheading">
+		android:layout_below="@id/subheading_container">
 		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/dbItemsList"
 			android:layout_width="match_parent"
