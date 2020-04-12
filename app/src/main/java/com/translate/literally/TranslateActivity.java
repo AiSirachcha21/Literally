@@ -33,7 +33,6 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
@@ -43,7 +42,6 @@ import com.ibm.watson.language_translator.v3.LanguageTranslator;
 import com.ibm.watson.language_translator.v3.model.TranslateOptions;
 import com.ibm.watson.language_translator.v3.model.TranslationResult;
 import com.ibm.watson.text_to_speech.v1.TextToSpeech;
-import com.ibm.watson.text_to_speech.v1.model.GetVoiceOptions;
 import com.ibm.watson.text_to_speech.v1.model.SynthesizeOptions;
 import com.ibm.watson.text_to_speech.v1.model.Voice;
 
@@ -57,12 +55,11 @@ public class TranslateActivity extends AppCompatActivity {
 	private static final String VER = "2018-05-01";
 	public static final String EXTRA_TEXT = "com.translate.literally.EXTRA_TEXT";
 	private static final int EXTRA_SUBTITLE_REQUEST = 1;
-	private AlphaAnimation inAlphaAnimation, outAlphaAnimation; //Alpha Animation for TTS load time
 	private RelativeLayout sourceTextHolder;
 	private CardView resultTextHolder;
 	private ProgressBar progressBar;
 	private ImageButton ttsSource, ttsResult;
-	private ImageView placeholderIcon;	//Translation Icon
+	private ImageView placeholderIcon;    //Translation Icon
 	private Spinner sourceSpinner, targetSpinner;
 	private EditText sourceEditText, translationResultEditText;
 	private MaterialButton savedPhraseBtn;
@@ -70,9 +67,7 @@ public class TranslateActivity extends AppCompatActivity {
 	private LanguageViewModel languageViewModel;
 	private TextToSpeech textToSpeech;
 	private StreamPlayer player = new StreamPlayer(); //Stream Player required for TTS
-	private TextTranslator textTranslator = new TextTranslator(new TranslatorService().initService(API_KEY,URL,VER));
-
-	private FrameLayout ttsProgressBarHolder;
+	private TextTranslator textTranslator = new TextTranslator(new TranslatorService().initService(API_KEY, URL, VER));
 
 	//Rotation Animation required for translation icon animation
 	private RotateAnimation rotateAnimation = new RotateAnimation(
@@ -99,7 +94,7 @@ public class TranslateActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_translate);
 
-		sourceTextHolder =findViewById(R.id.sourceEditTextHolder);
+		sourceTextHolder = findViewById(R.id.sourceEditTextHolder);
 		resultTextHolder = findViewById(R.id.translationResultTextViewHolder);
 		sourceSpinner = findViewById(R.id.sourceLangSpinner);
 		targetSpinner = findViewById(R.id.targetLangSpinner);
@@ -108,10 +103,9 @@ public class TranslateActivity extends AppCompatActivity {
 		translationResultEditText = findViewById(R.id.translationResultTextView);
 		progressBar = findViewById(R.id.progress_horizontal);
 		placeholderIcon = findViewById(R.id.placeholderIcon);
-		savedPhraseBtn= findViewById(R.id.savedPhraseBtn);
+		savedPhraseBtn = findViewById(R.id.savedPhraseBtn);
 		ttsSource = findViewById(R.id.sourceTextSpeakBtn);
 		ttsResult = findViewById(R.id.resultTextSpeakBtn);
-		ttsProgressBarHolder = findViewById(R.id.progressBarHolder);
 
 		showSnackbar(placeholderIcon, "You can click on the translate icon in order to translate");
 
@@ -119,9 +113,8 @@ public class TranslateActivity extends AppCompatActivity {
 		rotateAnimation.setRepeatCount(2);
 
 
-
-
 		new getDataAsyncTask(TranslateActivity.this).execute();
+
 		savedPhraseBtn.setOnClickListener(view -> {
 			Intent intent = new Intent(this, GetTextPhraseActivity.class);
 			intent.putExtra(EXTRA_TEXT, "Select a Phrase");
@@ -129,35 +122,35 @@ public class TranslateActivity extends AppCompatActivity {
 		});
 
 		placeholderIcon.setOnClickListener(view -> {
-			if (sourceEditText.getText() != null && !sourceEditText.getText().toString().equalsIgnoreCase("")){
+			if (sourceEditText.getText() != null && !sourceEditText.getText().toString().equalsIgnoreCase("")) {
 				new TranslateTextTask(TranslateActivity.this, textTranslator.getLanguageTranslator())
 						.execute(sourceEditText.getText().toString());
 				placeholderIcon.startAnimation(rotateAnimation);
-			}else{
+			} else {
 				showSnackbar(view, "Please enter some text in to translate.");
 			}
 		});
 	}
 
-	public void speak(View view){
+	public void speak(View view) {
 		Log.i("speakMethod", "Entered");
 
 		textToSpeech = new TranslatorService().initService(
-						getString(R.string.TEXT_VOICE_API_KEY),
-						getString(R.string.TEXT_VOICE_URL));
+				getString(R.string.TEXT_VOICE_API_KEY),
+				getString(R.string.TEXT_VOICE_URL));
 
-		if (view.getTag().toString().equalsIgnoreCase("source")){
+		if (view.getTag().toString().equalsIgnoreCase("source")) {
 			new SynthesisTask(TranslateActivity.this).execute(
 					sourceEditText.getText().toString()
 			);
-		}else{
+		} else {
 			new SynthesisTask(TranslateActivity.this).execute(
 					translationResultEditText.getText().toString()
 			);
 		}
 	}
 
-	public void showSnackbar(View view,String message){
+	public void showSnackbar(View view, String message) {
 		Snackbar.make(view,
 				message,
 				5000)
@@ -176,7 +169,7 @@ public class TranslateActivity extends AppCompatActivity {
 			String text = data.getStringExtra(EXTRA_TEXT);
 			sourceEditText.setText(text);
 			placeholderIcon.performClick();
-		}else{
+		} else {
 			Snackbar.make(sourceEditText, "Trouble retrieving text. Please try again", Snackbar.LENGTH_SHORT);
 		}
 	}
@@ -216,39 +209,14 @@ public class TranslateActivity extends AppCompatActivity {
 		protected void onPreExecute() {
 			TranslateActivity activity = translateActivityWeakReference.get();
 			super.onPreExecute();
-			activity.inAlphaAnimation = new AlphaAnimation(0f, 1f);
-			activity.inAlphaAnimation.setDuration(200);
-			activity.ttsProgressBarHolder.setAnimation(activity.inAlphaAnimation);
-			activity.ttsProgressBarHolder.setVisibility(View.VISIBLE);
 			activity.sourceEditText.setEnabled(false);
-			activity.sourceTextHolder.setVisibility(View.INVISIBLE);
-			activity.resultTextHolder.setVisibility(View.INVISIBLE);
+			activity.sourceTextHolder.setEnabled(false);
+			activity.resultTextHolder.setEnabled(false);
+			activity.placeholderIcon.startAnimation(activity.rotateAnimation);
 			activity.placeholderIcon.setEnabled(false);
 			activity.savedPhraseBtn.setEnabled(false);
 			activity.ttsResult.setEnabled(false);
 			activity.ttsSource.setEnabled(false);
-
-			new CountDownTimer(3000, 1000){
-				@Override
-				public void onTick(long l) {
-
-				}
-
-				@Override
-				public void onFinish() {
-					activity.inAlphaAnimation = new AlphaAnimation(1f, 0f);
-					activity.inAlphaAnimation.setDuration(200);
-					activity.ttsProgressBarHolder.setAnimation(activity.inAlphaAnimation);
-					activity.ttsProgressBarHolder.setVisibility(View.GONE);
-					activity.sourceEditText.setEnabled(true);
-					activity.sourceTextHolder.setVisibility(View.VISIBLE);
-					activity.resultTextHolder.setVisibility(View.VISIBLE);
-					activity.placeholderIcon.setEnabled(true);
-					activity.savedPhraseBtn.setEnabled(true);
-					activity.ttsResult.setEnabled(true);
-					activity.ttsSource.setEnabled(true);
-				}
-			}.start();
 		}
 
 		@Override
@@ -262,18 +230,18 @@ public class TranslateActivity extends AppCompatActivity {
 					strings[0]);
 
 			//https://cloud.ibm.com/apidocs/text-to-speech/text-to-speech?code=java#get-a-voice
-			SynthesizeOptions synthesizeOption= new SynthesizeOptions.Builder()
+			SynthesizeOptions synthesizeOption = new SynthesizeOptions.Builder()
 					.text(strings[0])
 					.voice(voice.getName())
 					.accept(HttpMediaType.AUDIO_WAV)
 					.build();
 
-			try{
+			try {
 				translateActivity.player.playStream(translateActivity.textToSpeech.synthesize(synthesizeOption)
 						.execute()
 						.getResult()
 				);
-			}catch (ServiceUnavailableException serviceException){
+			} catch (ServiceUnavailableException serviceException) {
 				return "Service Exception";
 			}
 			return "Did Synthesize";
@@ -282,15 +250,20 @@ public class TranslateActivity extends AppCompatActivity {
 		@Override
 		protected void onPostExecute(String s) {
 			TranslateActivity activity = translateActivityWeakReference.get();
-			if (s.equalsIgnoreCase("Service Exception")){
+			activity.sourceEditText.setEnabled(true);
+			activity.sourceEditText.setEnabled(true);
+			activity.placeholderIcon.clearAnimation();
+			activity.sourceTextHolder.setEnabled(true);
+			activity.placeholderIcon.setEnabled(true);
+			activity.savedPhraseBtn.setEnabled(true);
+			activity.ttsResult.setEnabled(true);
+			activity.ttsSource.setEnabled(true);
+			if (s.equalsIgnoreCase("Service Exception")) {
 				activity.showSnackbar(
 						activity.translationResultEditText,
 						"There was an issue with the IBM Watson Service. Please bare with us until it is solved.");
 			}
-
 		}
-
-
 	}
 
 
@@ -342,7 +315,6 @@ public class TranslateActivity extends AppCompatActivity {
 		private WeakReference<TranslateActivity> translateActivityWeakReference;
 		private LanguageTranslator translator;
 		private String targetLangCode, sourceLangCode;
-		private CountDownTimer countDownTimer;
 
 		TranslateTextTask(TranslateActivity translateActivity, LanguageTranslator translator) {
 			this.translateActivityWeakReference = new WeakReference<>(translateActivity);
@@ -355,28 +327,14 @@ public class TranslateActivity extends AppCompatActivity {
 			TranslateActivity translateActivity = translateActivityWeakReference.get();
 			translateActivity.translationResultEditText.setVisibility(View.INVISIBLE);
 			translateActivity.progressBar.setVisibility(View.VISIBLE);
-			countDownTimer = new CountDownTimer(5000,1000) {
-				@Override
-				public void onTick(long millisTillEnd) {
-					if (millisTillEnd > 0 && (5000-millisTillEnd)/100 != 0){
-						translateActivity.progressBar.setProgress((int)(8000-millisTillEnd)/100, true);
-					}
-				}
-
-				@Override
-				public void onFinish() {
-					countDownTimer = null;
-				}
-			};
-
-			countDownTimer.start();
+			translateActivity.progressBar.setIndeterminate(true);
 		}
 
 		@Override
 		protected String doInBackground(String... strings) {
 
 			TranslateActivity translateActivity = translateActivityWeakReference.get();
-			Log.i("TranslatedText", "PRE/"+strings[0]);
+			Log.i("TranslatedText", "PRE/" + strings[0]);
 
 			translateActivity.languages.forEach(language -> {
 				if (language.getLangDescription().equalsIgnoreCase(translateActivity.sourceSpinner.getSelectedItem().toString())) {
@@ -388,7 +346,7 @@ public class TranslateActivity extends AppCompatActivity {
 				}
 			});
 
-			if (sourceLangCode.equalsIgnoreCase(targetLangCode)){
+			if (sourceLangCode.equalsIgnoreCase(targetLangCode)) {
 				return strings[0];
 			}
 
@@ -399,9 +357,9 @@ public class TranslateActivity extends AppCompatActivity {
 					.modelId(sourceLangCode.concat("-").concat(targetLangCode))
 					.build();
 			TranslationResult result;
-			try{
+			try {
 				result = translator.translate(translateOptions).execute().getResult();
-			}catch (com.ibm.cloud.sdk.core.service.exception.NotFoundException nfe){
+			} catch (com.ibm.cloud.sdk.core.service.exception.NotFoundException nfe) {
 				return "";
 			}
 			return result.getTranslations().get(0).getTranslation();
@@ -411,11 +369,6 @@ public class TranslateActivity extends AppCompatActivity {
 		protected void onPostExecute(String s) {
 			super.onPostExecute(s);
 			TranslateActivity translateActivity = translateActivityWeakReference.get();
-
-			if (countDownTimer != null){
-				translateActivity.progressBar.setProgress(100);
-				countDownTimer.cancel();
-			}
 
 			translateActivity.translationResultEditText.setVisibility(View.VISIBLE);
 			translateActivity.progressBar.setVisibility(View.INVISIBLE);

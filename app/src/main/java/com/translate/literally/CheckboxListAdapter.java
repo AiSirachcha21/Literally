@@ -37,6 +37,7 @@ class CheckboxListAdapter extends RecyclerView.Adapter<CheckboxListAdapter.ViewH
 
 	@Override
 	public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+		subscribeButton.setVisibility(View.INVISIBLE);
 		holder.langCodeTextView.setText(languages.get(position).getLangCode());
 		holder.langDescriptionTextView.setText(languages.get(position).getLangDescription());
 
@@ -120,10 +121,12 @@ class CheckboxListAdapter extends RecyclerView.Adapter<CheckboxListAdapter.ViewH
 					}
 				}
 			});
+
+
 		}
 	}
 
-	static class TempCheckedItem{
+	public static class TempCheckedItem{
 		String langCode;
 		int state;
 

@@ -30,4 +30,8 @@
 		<item name="android:background">?android:attr/listDivider</item>
 	</style>
 
+	<style name="progressBarStyle" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+		<item name="colorAccent">@color/colorSecondary</item>
+	</style>
+
 </resources>

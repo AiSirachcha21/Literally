@@ -6,29 +6,6 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	tools:context=".TranslateActivity">
 
-
-	<!--https://stackoverflow.com/questions/18021148/display-a-loading-overlay-on-android-screen-->
-	<FrameLayout
-		android:id="@+id/progressBarHolder"
-		android:animateLayoutChanges="true"
-		android:visibility="gone"
-		android:alpha="0.4"
-		android:background="#fff"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_centerInParent="true">
-
-		<ProgressBar
-			style="?android:attr/progressBarStyleLargeInverse"
-			android:progressTint="@color/colorSecondary"
-			android:theme="@style/Widget.AppCompat.ProgressBar"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:indeterminate="true"
-			android:layout_gravity="center" />
-	</FrameLayout>
-	<!--________________________________________________________________________________-->
-
 	<RelativeLayout
 		android:id="@+id/header"
 		android:layout_width="match_parent"
@@ -192,13 +169,14 @@
 				android:layout_height="match_parent">
 				<ProgressBar
 					android:id="@+id/progress_horizontal"
+					android:theme="@style/progressBarStyle"
 					style="@style/Widget.AppCompat.ProgressBar.Horizontal"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginHorizontal="5dp"
-					android:progressTint="@color/colorSecondary"
-					android:progressBackgroundTint="@color/colorSecondaryVariant"
 					android:layout_alignParentTop="true"/>
+				<!--android:progressDrawable="@drawable/progressbar_hor"-->
+
 				<EditText
 					android:id="@+id/translationResultTextView"
 					android:layout_width="match_parent"
