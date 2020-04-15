@@ -3,6 +3,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	tools:context=".EditPhraseActivity">
 
 	<RelativeLayout
@@ -58,5 +59,15 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent" />
 	</RelativeLayout>
+
+	<com.google.android.material.button.MaterialButton
+		android:id="@+id/edit_btn"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_marginHorizontal="20dp"
+		app:backgroundTint="@color/colorSecondary"
+		android:text="@string/edit_btn"
+		android:visibility="invisible"/>
 
 </RelativeLayout>

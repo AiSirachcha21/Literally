@@ -40,5 +40,6 @@
 	<string name="result_placeholder">Result</string>
 	<string name="saved_phrases">Saved Phrases</string>
 	<string name="TranslationError">Sorry. The model for this language was not located. Please bare with us.</string>
+	<string name="edit_btn">Edit</string>
 
 </resources>

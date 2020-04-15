@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -25,7 +26,6 @@ public class RadioListAdapter extends RecyclerView.Adapter<RadioListAdapter.View
 	private int lastSelectedPosition = -1;
 	private List<TextSample> textSamples = new ArrayList<>();
 	private TextSampleViewModel textSampleViewModel;
-
 
 	@NonNull
 	@Override
@@ -67,51 +67,72 @@ public class RadioListAdapter extends RecyclerView.Adapter<RadioListAdapter.View
 			listItemText = itemView.findViewById(R.id.listItemText);
 			listItemRadioButton = itemView.findViewById(R.id.listItemRadioButton);
 
-			listItemText.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					lastSelectedPosition = getAdapterPosition();
-					notifyDataSetChanged();
+			itemView.setOnClickListener(view -> {
 
-					AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
-					alertDialog.setTitle("Edit Text");
-					alertDialog.setMessage("Please make changes to your text");
+				lastSelectedPosition = getAdapterPosition();
+				notifyDataSetChanged();
 
-					final EditText input = new EditText(view.getContext());
-					LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-							LinearLayout.LayoutParams.MATCH_PARENT,
-							LinearLayout.LayoutParams.MATCH_PARENT);
-					lp.setMargins(10, 5, 10, 5);
-					input.setLayoutParams(lp);
-					alertDialog.setView(input);
+				listItemRadioButton.setChecked(!listItemRadioButton.isChecked());
 
-					String oldText = listItemText.getText().toString();
-					input.setText(oldText);
+				//Gets the Root View of the entire activity
+				View mainView = view.getRootView();
+				MaterialButton editBtn = mainView.findViewById(R.id.edit_btn);
+				editBtn.setVisibility(View.VISIBLE);
 
-					alertDialog.setPositiveButton("YES", (dialog, which) -> {
-						textSampleViewModel.updateText(oldText, input.getText().toString());
-						Snackbar.make(
-								listItemText,
-								R.string.snackbarMsg_SuccesfulChange,
-								Snackbar.LENGTH_LONG
-						).show();
-						input.getText().clear();
-					});
+				AlertDialog editDialog = editDialog(itemView);
 
-					alertDialog.setNegativeButton("NO", (dialog, which) -> {
-						Snackbar.make(
-								listItemText,
-								R.string.snackbarMsg_CancelledChange,
-								Snackbar.LENGTH_LONG
-						).show();
-						input.getText().clear();
-					});
+				editDialog.setCanceledOnTouchOutside(true);
+				editDialog.setOnDismissListener(dialogInterface -> {
+					editBtn.setVisibility(View.INVISIBLE);
+				});
 
-					alertDialog.show();
-				}
+				editBtn.setOnClickListener(v -> update(editDialog));
+				this.listItemRadioButton.setChecked(false);
+			});
+		}
+
+		void update(AlertDialog dialog){
+			dialog.show();
+		}
+
+		AlertDialog editDialog(View view){
+			AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
+			alertDialog.setTitle("Edit Text");
+			alertDialog.setMessage("Please make changes to your text");
+
+			final EditText input = new EditText(view.getContext());
+			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+					LinearLayout.LayoutParams.MATCH_PARENT,
+					LinearLayout.LayoutParams.MATCH_PARENT);
+			lp.setMargins(10, 5, 10, 5);
+			input.setLayoutParams(lp);
+			alertDialog.setView(input);
+
+			String oldText = listItemText.getText().toString();
+			input.setText(oldText);
+
+			alertDialog.setPositiveButton("YES", (dialog, which) -> {
+				textSampleViewModel.updateText(oldText, input.getText().toString());
+				Snackbar.make(
+						listItemText,
+						R.string.snackbarMsg_SuccesfulChange,
+						Snackbar.LENGTH_LONG
+				).show();
+				input.getText().clear();
 			});
 
+			alertDialog.setNegativeButton("NO", (dialog, which) -> {
+				Snackbar.make(
+						listItemText,
+						R.string.snackbarMsg_CancelledChange,
+						Snackbar.LENGTH_LONG
+				).show();
+				input.getText().clear();
+			});
+
+			return alertDialog.create();
 		}
+
 	}
 
 }
